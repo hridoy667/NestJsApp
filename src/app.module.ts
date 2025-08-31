@@ -5,17 +5,21 @@ import { AppService } from './app.service';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { EmployeesModule } from './employees/employees.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({
+      isGlobal:true
+    }),
     TypeOrmModule.forRoot({
       type:'postgres',
       url:process.env.DATABASE_URL,
       autoLoadEntities:true,
       synchronize: true
     }),
-    UserModule],
+    UserModule,
+    EmployeesModule],
   controllers: [AppController],
   providers: [AppService],
 })
